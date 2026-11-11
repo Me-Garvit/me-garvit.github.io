@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Garvit Singhal, GTM Engineer. Lead sources, agents and sales-ops automations built for outbound.">
+<title>Garvit Singhal</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: big-type hero with a live funnel line, then a filterable grid of system cards; each card gets the visual that fits its system (flowchart, terminal output, cost ladder, funnel, timeline), plus pointers and business impact */
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --fg:#101827; --muted:#5A6476; --line:#DCE1EA;
+  --accent:#2C47F5; --accent-ink:#FFFFFF; --accent-soft:#E6EAFF;
+  --live:#0E8A5F; --live-soft:#DDF3EA; --build:#A65F00; --build-soft:#FBEBD3; --spec:#6A4FC9; --spec-soft:#ECE7FB; --stop:#B42335; --stop-soft:#FBE4E7;
+  --display:"Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B0F17; --surface:#131A26; --fg:#E7EBF3; --muted:#9AA4B6; --line:#243044;
+  --accent:#8796FF; --accent-ink:#0B0F17; --accent-soft:#1C2445;
+  --live:#4ED3A0; --live-soft:#11291F; --build:#F2B45C; --build-soft:#2D2111; --spec:#B6A2FF; --spec-soft:#221B3D; --stop:#FF8F9A; --stop-soft:#2E151A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B0F17; --surface:#131A26; --fg:#E7EBF3; --muted:#9AA4B6; --line:#243044;
+  --accent:#8796FF; --accent-ink:#0B0F17; --accent-soft:#1C2445;
+  --live:#4ED3A0; --live-soft:#11291F; --build:#F2B45C; --build-soft:#2D2111; --spec:#B6A2FF; --spec-soft:#221B3D; --stop:#FF8F9A; --stop-soft:#2E151A; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.mono{font-family:var(--mono)}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* Top bar */
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:22px;flex-wrap:wrap}
+.top nav{display:flex;gap:20px;flex-wrap:wrap;font-size:14px}
+.top nav a{text-decoration:none;color:var(--muted)}
+.top nav a:hover{color:var(--fg)}
+.mark{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.02em}
+
+/* Hero */
+.hero{padding-block:48px 56px;display:grid;gap:28px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(44px,8.5vw,104px);line-height:.95;letter-spacing:-.045em;margin:0;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p.lede{font-size:clamp(17px,2vw,20px);max-width:60ch;color:var(--muted);margin:0}
+.hero p.lede strong{color:var(--fg);font-weight:600}
+.funnel{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-family:var(--mono);font-size:13px}
+.funnel span.step{padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.funnel span.arrow{color:var(--muted)}
+.funnel span.step.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;font-family:var(--body)}
+.btn.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn:hover{border-color:var(--accent)}
+
+/* Stack strip */
+.stack{border-block:1px solid var(--line);padding-block:18px;display:flex;flex-wrap:wrap;gap:10px 28px;align-items:baseline}
+.stack .label{margin-right:4px}
+.stack span.t{font-family:var(--mono);font-size:14px}
+
+/* Work section */
+section{padding-block:64px 8px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.5vw,46px);letter-spacing:-.03em;line-height:1.05;margin:6px 0 0;text-wrap:balance}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--body);font-size:14px;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:20px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,460px),1fr));gap:18px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card .meta{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card h3{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.02em;line-height:1.15;margin:0}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.status{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;white-space:nowrap}
+.status.live{color:var(--live);background:var(--live-soft)}
+.status.build{color:var(--build);background:var(--build-soft)}
+.status.spec{color:var(--spec);background:var(--spec-soft)}
+.flow{list-style:none;margin:0;padding:12px;border-radius:8px;background:var(--bg);font-family:var(--mono);font-size:12.5px;line-height:1.5;display:flex;flex-wrap:wrap;gap:6px 4px;align-items:center}
+.flow li{display:contents}
+.flow li span{padding:3px 7px;border-radius:4px;background:var(--surface);border:1px solid var(--line)}
+.flow li:not(:last-child)::after{content:"→";color:var(--muted);padding:0 2px}
+.tools{display:flex;flex-wrap:wrap;gap:6px}
+.tools span{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--fg)}
+details{border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+summary{cursor:pointer;font-weight:600;font-size:14px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);font-size:18px;color:var(--accent)}
+details[open] summary::after{content:"–"}
+.case{display:grid;gap:10px;margin-top:12px}
+.case div{display:grid;gap:2px}
+.case b{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.case span{font-size:14.5px;color:var(--fg)}
+
+/* Feature (first card spans) */
+/* Per-card visuals */
+.viz{background:var(--bg);border-radius:10px;padding:14px;display:grid;gap:10px;min-width:0}
+.vcap{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.viz .fc{padding:4px 0;background:transparent}
+.mono-t{font-family:var(--mono)!important;font-size:20px!important;letter-spacing:-.01em!important}
+/* terminal */
+.term{background:#0E131C;color:#D9E0EC;border-radius:8px;padding:12px 14px;font-family:var(--mono);font-size:12px;line-height:1.55;display:grid;gap:6px;overflow-x:auto}
+.tbar{display:flex;gap:5px;margin-bottom:2px}.tbar i{width:8px;height:8px;border-radius:50%;background:#3A4458}
+.term .pr{color:#7FE3B5}.term .dim{color:#8792A6;font-size:11px}
+.rec{border:1px solid #2A3345;border-radius:6px;padding:8px 10px;display:grid;gap:2px}
+.rh{color:#9DABFF;margin-bottom:4px}
+.rf{display:flex;justify-content:space-between;gap:12px}.rf span{color:#8792A6}.rf b{font-weight:500;text-align:right}
+.rb{color:#F2C26B;margin-top:4px}
+.bk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;font-family:var(--body)}
+.bk .b{border-radius:6px;padding:6px 8px;display:grid;gap:1px}.bk b{font-size:12.5px}.bk span{font-size:10.5px;opacity:.85;line-height:1.3}
+.b-stop{background:#3A1A20;color:#FF9AA4}.b-build{background:#33270F;color:#F4C06C}.b-live{background:#11301F;color:#6FE0AE}
+/* phases */
+.ph{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap}
+.pg{flex:1 1 130px;border:1.5px solid var(--line);border-radius:8px;padding:8px;background:var(--surface);display:grid;gap:6px;align-content:start}
+.pgh{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.pg-build{border-color:var(--build)}.pg-build .pgh{color:var(--build)}
+.pg-spec{border-color:var(--spec);border-style:dashed}.pg-spec .pgh{color:var(--spec)}
+.pg-accent{border-color:var(--accent)}.pg-accent .pgh{color:var(--accent)}
+.pgi{display:grid;gap:4px}.pgi span{font-size:12.5px;font-weight:500;padding:3px 7px;border-radius:4px;background:var(--bg)}
+.parr{align-self:center;color:var(--muted);font-family:var(--mono)}
+.loop{display:flex;gap:8px;align-items:center;font-size:12.5px;padding:7px 10px;border-radius:6px;border:1.5px dashed var(--live);color:var(--fg);background:var(--live-soft)}
+.loop .la{font-size:16px;color:var(--live)}
+/* funnel */
+.fun{display:grid;gap:5px;justify-items:center}
+.fb{width:var(--w);background:var(--accent-soft);border:1.5px solid var(--accent);border-radius:6px;padding:6px 10px;text-align:center;font-size:13px;font-weight:500}
+.fb:nth-child(2){opacity:.92}.fb:nth-child(3){opacity:.86}
+.fend{font-family:var(--mono);font-size:12px;color:var(--live);margin-top:2px}
+/* ladder */
+.lad{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.lad li{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line)}
+.lad li:last-child{border-bottom:0}
+.ln{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:11px;background:var(--surface);border:1.5px solid var(--accent);color:var(--accent)}
+.lb{display:grid;min-width:0}.lb b{font-size:13.5px;font-weight:600;line-height:1.3}.lb span{font-size:12px;color:var(--muted)}
+.cost{font-family:var(--mono);font-size:12px;color:var(--build);min-width:38px;text-align:right}
+.lad li.fin .ln{background:var(--live);border-color:var(--live);color:var(--surface)}
+.lad li.fin b{color:var(--live)}
+/* table */
+.tw{overflow-x:auto}
+.tb{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--surface);border-radius:8px;overflow:hidden}
+.tb th{text-align:left;font-weight:600;padding:7px 9px;border-bottom:1.5px solid var(--line);white-space:nowrap;vertical-align:bottom}
+.tb th i{display:block;font-style:normal;font-family:var(--mono);font-size:9.5px;color:var(--spec);font-weight:400;letter-spacing:.04em}
+.tb td{padding:7px 9px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;white-space:nowrap}
+.tb tr:last-child td{border-bottom:0}
+.tb td:not(:first-child){background:var(--spec-soft)}
+.tb td.ok{color:var(--live);font-weight:500}.tb td.no{color:var(--stop)}
+.ag{display:inline-block;font-size:9.5px;color:var(--spec);border:1px solid var(--spec);border-radius:3px;padding:0 4px;margin-right:6px}
+/* timeline */
+.tline{display:grid;gap:6px}
+.axis{display:grid;grid-template-columns:repeat(10,1fr);position:relative;padding-top:6px}
+.axis::before{content:"";position:absolute;left:5%;right:5%;top:12px;height:1.5px;background:var(--line)}
+.tk{display:grid;justify-items:center;gap:4px;position:relative}
+.tk i{width:9px;height:9px;border-radius:50%;background:var(--surface);border:1.5px solid var(--muted)}
+.tk em{font-style:normal;font-family:var(--mono);font-size:10px;color:var(--muted)}
+.tk.hit i{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}.tk.hit em{color:var(--accent);font-weight:500}
+.tk.call i{background:var(--live);border-color:var(--live)}.tk.call em{color:var(--live);font-weight:500}
+.tcap{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:center}
+.slack{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;gap:5px}
+.sh{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:2px}.sh b{font-size:13px}.sh span{font-size:11.5px;color:var(--muted)}
+.sl{display:grid;grid-template-columns:82px 1fr;gap:8px;font-size:12.5px}.sl b{font-weight:600}.sl span{color:var(--muted)}
+/* transform */
+.tf{display:grid;grid-template-columns:1.3fr auto 1fr;gap:10px;align-items:center}
+.doc{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px;display:grid;gap:5px;align-content:start}
+.dh{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.doc i{display:block;height:6px;border-radius:3px;background:var(--line)}
+.doc mark{font-family:var(--mono);font-size:11px;padding:2px 6px;border-radius:4px;background:var(--build-soft);color:var(--build);justify-self:start}
+.doc.mail mark{background:var(--live-soft);color:var(--live)}
+.cta1{justify-self:start;font-size:11px;font-weight:600;padding:3px 9px;border-radius:5px;background:var(--fg);color:var(--bg);margin-top:3px}
+.tfa{font-family:var(--mono);color:var(--muted);font-size:18px}
+@media (max-width:480px){.tf{grid-template-columns:1fr}.tfa{transform:rotate(90deg);justify-self:center}.bk{grid-template-columns:1fr}.parr{display:none}.axis em{font-size:8.5px}}
+
+/* Flowcharts */
+.fc{background:var(--bg);border-radius:10px;padding:16px 12px;display:flex;flex-direction:column;align-items:stretch;overflow-x:auto}
+.row.single{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}
+.row.single>.nd{width:min(100%,340px)}
+.conn{position:relative;height:18px;flex:none}
+.conn::before{content:"";position:absolute;left:50%;top:0;bottom:5px;width:1.5px;background:var(--muted);transform:translateX(-50%)}
+.conn::after{content:"";position:absolute;left:50%;bottom:0;transform:translateX(-50%);border:5px solid transparent;border-top:6px solid var(--muted);border-bottom:0}
+.fork{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px;position:relative;padding-top:12px}
+.fork::before{content:"";position:absolute;top:0;height:1.5px;background:var(--muted);left:calc(50% / var(--n));right:calc(50% / var(--n))}
+.fork:not(.end){padding-bottom:12px}
+.fork:not(.end)::after{content:"";position:absolute;bottom:0;height:1.5px;background:var(--muted);left:calc(50% / var(--n));right:calc(50% / var(--n))}
+.br{position:relative;display:flex}
+.br>.nd{flex:1}
+.br::before{content:"";position:absolute;left:50%;top:-12px;height:12px;width:1.5px;background:var(--muted)}
+.fork:not(.end) .br::after{content:"";position:absolute;left:50%;bottom:-12px;height:12px;width:1.5px;background:var(--muted)}
+.nd{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:8px 11px;border-radius:8px;border:1.5px solid var(--line);background:var(--surface);min-width:0;text-align:left}
+.nd .kt{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+.nd .nt{font-weight:600;font-size:13.5px;line-height:1.3}
+.nd .ns{font-size:12px;color:var(--muted);line-height:1.35}
+.nd .ni{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.nd .ni i{font-style:normal;font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:4px;border:1px solid var(--line);background:var(--bg)}
+.nd .edge{font-family:var(--mono);font-size:10px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:0 7px;margin-bottom:3px}
+.exit{font-family:var(--mono);font-size:11px;color:var(--stop);background:var(--stop-soft);padding:3px 8px;border-radius:999px;white-space:nowrap}
+.k-src{border-style:dashed;border-color:var(--muted)}
+.k-dec{border-color:var(--accent);background:var(--accent-soft)}
+.k-dec .kt{color:var(--accent)}
+.k-dec .kt::before{content:"";width:7px;height:7px;background:var(--accent);transform:rotate(45deg)}
+.k-ai{border-color:var(--spec);background:var(--spec-soft)}
+.k-ai .kt{color:var(--spec)}
+.k-ai .kt::before{content:"✦"}
+.k-db{border-color:var(--build);background:var(--build-soft);border-radius:14px/9px}
+.k-db .kt{color:var(--build)}
+.k-out{border-color:var(--live);background:var(--live-soft)}
+.k-out .kt{color:var(--live)}
+.k-stop{border-color:var(--stop);background:var(--stop-soft)}
+.k-stop .kt,.k-stop .nt{color:var(--stop)}
+.nd.mini{padding:3px 9px;flex-direction:row}
+.klegend{gap:8px;margin-top:-8px}
+.pts{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px;color:var(--muted)}
+.pts li::marker{color:var(--accent)}
+@media (max-width:480px){.fork{--n:1 !important;grid-template-columns:1fr}.fork::before,.fork::after,.br::before,.br::after{display:none}.fork{padding-block:0;gap:6px}}
+
+.how{display:grid;gap:8px}
+.how b,.impact b{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--accent)}
+.how ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14.5px;line-height:1.55}
+.how li::marker{color:var(--accent)}
+.impact{display:grid;gap:4px;padding:12px 14px;border-radius:8px;background:var(--live-soft)}
+.impact b{color:var(--live)}
+.impact span{font-size:14.5px;line-height:1.55}
+
+/* Experience */
+.timeline{display:grid;gap:0;border-top:1px solid var(--line)}
+.role{display:grid;grid-template-columns:200px 1fr;gap:8px 32px;padding-block:22px;border-bottom:1px solid var(--line)}
+.role .when{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.role h4{font-family:var(--display);font-size:21px;font-weight:700;margin:0;letter-spacing:-.02em}
+.role h4 small{font-family:var(--body);font-weight:500;font-size:15px;color:var(--muted);letter-spacing:0}
+.role p{margin:6px 0 0;color:var(--muted);max-width:68ch}
+@media (max-width:640px){.role{grid-template-columns:1fr}}
+
+/* How I build */
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:28px}
+.principles div{display:grid;gap:6px;align-content:start}
+.principles h5{font-family:var(--display);font-size:19px;margin:0;letter-spacing:-.01em}
+.principles p{margin:0;color:var(--muted);font-size:15px}
+
+/* Contact */
+.contact{margin-block:72px 40px;padding:clamp(24px,5vw,48px);border-radius:16px;background:var(--fg);color:var(--bg);display:grid;gap:20px}
+.contact h2{color:var(--bg);margin:0}
+.contact .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.contact .addr{font-family:var(--mono);font-size:15px;padding:10px 14px;border-radius:8px;border:1px solid color-mix(in srgb,var(--bg) 30%,transparent);user-select:all;word-break:break-all}
+.contact .btn{background:var(--bg);color:var(--fg);border-color:var(--bg)}
+.contact .btn.ghost{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,transparent)}
+footer{padding-block:0 40px;color:var(--muted);font-size:13px}
+
+@media (prefers-reduced-motion:no-preference){
+  .funnel span.step{transition:background .25s,color .25s,border-color .25s}
+  .card{transition:border-color .2s,transform .2s}
+  .card:hover{border-color:var(--accent);transform:translateY(-2px)}
+}
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="mark">Garvit Singhal</div>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a><a href="#experience">Experience</a><a href="#approach">Approach</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="label">GTM Engineer · InboxKit · New Delhi</div>
+    <h1>I build the <em>machinery</em> behind outbound.</h1>
+    <p class="lede">Lead sources nobody else is watching, agents that qualify and research, and the automations that carry a prospect from <strong>first signal to booked call</strong>. Mostly Python, Clay, n8n and Claude.</p>
+    <div class="funnel" aria-label="The outbound loop I build for">
+      <span class="step">signal</span><span class="arrow">→</span>
+      <span class="step">enrich</span><span class="arrow">→</span>
+      <span class="step">qualify</span><span class="arrow">→</span>
+      <span class="step">send</span><span class="arrow">→</span>
+      <span class="step">reply</span><span class="arrow">→</span>
+      <span class="step">meeting</span><span class="arrow">→</span>
+      <span class="step">revenue</span>
+    </div>
+    <div class="cta">
+      <a class="btn primary" href="#work">See the systems</a>
+      <a class="btn" href="https://linkedin.com/in/garvitsinghal22" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn" href="https://github.com/Me-Garvit" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+
+  <div class="stack">
+    <span class="label">Stack</span>
+    <span class="t">Python</span><span class="t">Clay</span><span class="t">n8n</span><span class="t">Claude Code</span><span class="t">Claude API</span><span class="t">SQL</span><span class="t">Supabase</span><span class="t">Apify</span><span class="t">Outscraper</span><span class="t">Parallel.ai</span><span class="t">DNS · MX · DMARC</span><span class="t">Slack</span><span class="t">AWS</span>
+  </div>
+
+  <section id="work" aria-labelledby="work-h">
+    <div class="sec-head">
+      <div><div class="label">Selected work</div><h2 id="work-h">Systems I've built</h2></div>
+      <div class="filters" role="group" aria-label="Filter projects" id="filters"></div>
+    </div>
+    <div class="legend">
+      <span><span class="status live">Live</span> in use today</span>
+      <span><span class="status build">In build</span> partly shipped</span>
+      <span><span class="status spec">Designed</span> full spec, build next</span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="label">Experience</div>
+    <h2 id="exp-h" style="margin-bottom:20px">Where the work happened</h2>
+    <div class="timeline">
+      <div class="role">
+        <div class="when">July 2026 – Present</div>
+        <div><h4>GTM Engineer <small>· InboxKit</small></h4>
+        <p>Run outbound for a cold email infrastructure company and build the lead sources, agents and internal tooling behind it.</p></div>
+      </div>
+      <div class="role">
+        <div class="when">Mar 2026 – May 2026</div>
+        <div><h4>Automation and GTM Engineering Intern <small>· Converzoy</small></h4>
+        <p>Built lead-generation pipelines for Instagram creators and local clinics, with n8n handling collection, cleaning, enrichment and handoff.</p></div>
+      </div>
+      <div class="role">
+        <div class="when">Nov 2025 – Mar 2026</div>
+        <div><h4>Cloud Sales Intern <small>· AceCloud (RTDS)</small></h4>
+        <p>Sold AWS-alternative cloud infrastructure on the phone: 70+ calls a day, 10%+ booked into meetings, 3 clients closed. It's why I build tools sellers will actually use.</p></div>
+      </div>
+      <div class="role">
+        <div class="when">2022 – 2026</div>
+        <div><h4>B.Tech, Information Technology <small>· Maharaja Surajmal Institute of Technology</small></h4>
+        <p>Minor in AI and ML.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="approach" aria-labelledby="ap-h">
+    <div class="label">Approach</div>
+    <h2 id="ap-h" style="margin-bottom:28px">How I build</h2>
+    <div class="principles">
+      <div><h5>Cheap signals gate expensive ones</h5><p>Free checks like titles, DNS records and redirects run first, so scraping, enrichment and AI calls only happen on records that earned them.</p></div>
+      <div><h5>Rules first, AI for the grey zone</h5><p>Pattern matching handles the clear cases. AI gets the ambiguous ones with a structured evidence bundle, and its calls are logged so they can become rules later.</p></div>
+      <div><h5>Design before code</h5><p>I settle triggers, data sources, failure modes and hosting on paper before writing the first line. It keeps the build short.</p></div>
+      <div><h5>Built for the person on the call</h5><p>The output lands where sellers already are: a Slack brief, a sheet, a drafted email. If a rep has to open a new tool, it won't get used.</p></div>
+    </div>
+  </section>
+
+  <div class="contact" id="contact">
+    <div class="label" style="color:color-mix(in srgb,var(--bg) 65%,transparent)">Contact</div>
+    <h2>Building outbound and need the plumbing? Let's talk.</h2>
+    <div class="row">
+      <span class="addr" id="email">singhalgarvit203@gmail.com</span>
+      <button class="btn" id="copy" type="button">Copy email</button>
+      <a class="btn ghost" href="https://linkedin.com/in/garvitsinghal22" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn ghost" href="https://github.com/Me-Garvit" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+  <footer>Garvit Singhal · GTM Engineer · New Delhi, India</footer>
+</div>
+
+<script>
+/* Each project picks the visual that explains it best (viz.type). Examples in visuals are marked as examples. */
+const PROJECTS=[
+ {cat:"signals",org:"InboxKit",status:"live",title:"Secondary Domain Intelligence Engine",
+  blurb:"Catches companies building cold email infrastructure from the sending domains they register.",
+  viz:{type:"flow",cap:"Detection logic",rows:[
+   {k:"src",t:"Newly registered domains",s:"pulled daily"},
+   {k:"op",t:"Trace HTTP redirects",s:"re-checked over a 4-day window"},
+   {k:"dec",t:"Redirects anywhere?"},
+   [{e:"yes",k:"op",t:"Cluster by destination host",s:"many secondaries → 1 parent"},
+    {e:"no",k:"op",t:"DMARC TXT + brand-variant match",s:"prefix / suffix patterns"}],
+   {k:"dec",t:"MX points to a real mailbox provider?",x:"no → drop"},
+   {k:"out",t:"Company-level qualification",s:"→ outbound"}]},
+  points:["Intent signal from public DNS, no paid intent data","4-day re-check catches redirects set up after purchase"],
+  impact:"Reaches email-infra buyers while they're setting up sending, before they've picked a provider. $0 data cost per lead.",
+  tools:["Python","DNS","HTTP tracing","MX","DMARC"]},
+
+ {cat:"ops",org:"InboxKit",status:"live",title:"supabase-lead-tracker",mono:true,
+  blurb:"A Claude skill and CLI plugin. Give it any lead sheet and it returns each lead's full history from our sending database.",
+  viz:{type:"term",cap:"Example output",cmd:"supabase-lead-tracker check leads.csv",
+   note:"matched on normalized email + company domain · SQL across leads, sends, campaigns, copy, replies",
+   rec:{lead:"jane@acme.io",fields:[["emails sent","4"],["touches","2"],["last contacted","21 Oct 2026"],["campaign","CXO tier"],["copy","variant B"],["response","no reply"],["email on file","yes · skip enrichment"],["source","Apollo"]],bucket:"contacted, no reply → re-engage with a new angle"},
+   buckets:[["stop","Exclude","positive · unsub · DNC · declined · in convo"],["build","Contacted","no reply yet"],["live","New","never contacted"]]},
+  points:["Runs inside Claude or straight from the terminal","Last step of every list-building session: AI Ark, Apollo, CSVs, Sheets"],
+  impact:"Saves a large share of enrichment spend: any lead we already hold a verified email for skips paid enrichment entirely. It also stops re-mailing people who said no or are mid-conversation, which protects sender reputation, and the next copy avoids an angle they've already seen.",
+  tools:["Supabase","PostgreSQL","SQL","Python","Claude skills","CLI"]},
+
+ {cat:"signals",org:"InboxKit",status:"build",title:"LinkedIn Engager Pipeline",
+  blurb:"Post engagement → enriched leads → live campaign, with revenue traced back to the post that started it.",
+  viz:{type:"phases",cap:"Architecture",groups:[
+    {h:"Phase 1 · clean dataset",s:"build",items:["Post engagers","Apify scrape · no login","Enrich + normalize"]},
+    {h:"Phase 2 · qualify",s:"spec",items:["ICP qualification"]},
+    {h:"Launch",s:"accent",items:["Claude copy","DNC gate","Campaign via SendKit MCP"]}],
+   loop:"Stripe payment → attributed to source post → Next.js dashboard"},
+  points:["Two components: Python pipeline + Next.js dashboard","Qualification is its own phase so each part can change independently"],
+  impact:"Turns social engagement into pipeline with no manual list work, and shows which posts drive revenue, not just likes.",
+  tools:["Python","Apify","Claude API","SendKit MCP","Next.js","Stripe"]},
+
+ {cat:"signals",org:"InboxKit",status:"live",title:"Competitor-Follower CXO Source",
+  blurb:"Reaches executives through the tools their own sales teams follow.",
+  viz:{type:"funnel",cap:"How the list narrows",steps:["Followers of a target tool","Keep sales + GTM titles","Resolve to companies · dedupe","Founders + C-level"],end:"CXO campaign tier"},
+  points:["Code in a private repo, re-runnable on any tool"],
+  impact:"Gives a real reason to reach budget holders who show no signals themselves, and opened an executive campaign tier.",
+  tools:["Python","Scraping","Enrichment APIs"]},
+
+ {cat:"agents",org:"InboxKit",status:"spec",title:"ICP Qualification Agent",
+  blurb:"Decides ICP fit for company and contact before any enrichment spend. Cheap checks run first, expensive ones only if needed.",
+  viz:{type:"ladder",cap:"Gates, ordered by cost",gates:[
+    {t:"Title check",c:0,x:"fail → disqualify, no scrape"},
+    {t:"Scrape homepage → /about → /services",c:1,x:"strong disqualifier → exit early"},
+    {t:"Read /clients last",c:1,x:"can overturn a tentative qualify"},
+    {t:"Rule engine · regex + keyword tables",c:1,x:"settles ~80% of cases"},
+    {t:"AI fallback · ambiguous only",c:2,x:"evidence bundle · strict schema · audit log"},
+    {t:"Enrichment + email finding",c:3,x:"only for qualified leads",fin:true}]},
+  points:["Two gates combined: company fit + persona fit","Stricter confidence bar to qualify than to reject","AI decisions are logged and promoted into rules over time"],
+  impact:"Enrichment credits only get spent on leads that can buy, and the agent gets cheaper as AI calls turn into rules.",
+  tools:["Python","Claude API","Regex rules","Scraping","JSON schema"]},
+
+ {cat:"agents",org:"Claude Code",status:"live",title:"Parallel Lead Intelligence Agent",
+  blurb:"Fills in custom columns on a lead list by researching every company in parallel.",
+  viz:{type:"table",cap:"Example: the caller defines the columns, one agent per row fills them",
+   cols:["Company","Hiring SDRs?","Runs outbound?","Fit"],
+   rows:[["acme.io","yes","yes","qualified"],["northwind.dev","no","yes","qualified"],["globex.com","no","no","rejected"]]},
+  points:["Native Claude Code agent: call it from any session or the CLI","Sources per row: company domain, web search, task APIs"],
+  impact:"Produces the data points no vendor sells, across a whole list in one run. Replaces manual row-by-row research.",
+  tools:["Claude Code","Web search APIs","Task APIs"]},
+
+ {cat:"ops",org:"InboxKit",status:"build",title:"Pre-Call Brief Bot",
+  blurb:"A prospect brief lands in Slack about 30 minutes before every sales call.",
+  viz:{type:"timeline",cap:"How it runs",
+   brief:{ch:"#sales-briefs",title:"Pre-call brief · example",lines:[["Who","Head of Growth at the prospect company"],["They asked","their booking-form answers"],["History","prior email thread, summarized"],["Company","what they do, size, current stack"]]}},
+  points:["Python on an Oracle Cloud free-tier VM, cron every 5 min","Classifier skips internal meetings","Sources: Calendar, Gmail thread, booking form, company research → Claude API"],
+  impact:"Reps join every call with context and zero prep time, at $0 hosting cost.",
+  tools:["Python","cron","Oracle Cloud","Calendar API","Gmail API","Claude API","Slack"]},
+
+ {cat:"ops",org:"InboxKit",status:"live",title:"Post-Call Follow-Up Skill",
+  blurb:"Turns a long call summary into a short follow-up that keeps only what drives the decision.",
+  viz:{type:"transform",cap:"What it keeps",keep:["pricing","recommended setup","next step"]},
+  points:["Detects pasted call notes and confirms before drafting","Few-shot examples taken from follow-ups that got replies"],
+  impact:"Follow-ups go out minutes after the call, in the same clear format every time.",
+  tools:["Claude skills","Prompt design","Fireflies"]},
+
+ {cat:"earlier",org:"Converzoy",status:"live",title:"Instagram Lead Pipeline",
+  blurb:"Give it a niche or keyword and it returns a qualified list of relevant Instagram profiles in Google Sheets.",
+  viz:{type:"chips",items:["niche / keyword","discover profiles","qualify","Google Sheets"]},
+  points:["Orchestrated in n8n, re-runnable per niche with no code changes"],
+  impact:"Niche lead lists on demand instead of hours of manual scrolling.",
+  tools:["n8n","Python","Google Sheets"]},
+
+ {cat:"earlier",org:"Converzoy",status:"live",title:"Clinic Prospecting System",
+  blurb:"Pulls clinics from Google Maps, fills in contact details from their websites, and validates the result before outreach.",
+  viz:{type:"chips",items:["Outscraper · Maps","dedupe","custom crawler","Parallel.ai validation","lead list"]},
+  points:["n8n runs the whole flow and the handoff"],
+  impact:"Messy Maps data becomes outreach-ready lists with almost no manual cleanup.",
+  tools:["Outscraper","Custom crawler","Parallel.ai","n8n"]}
+];
+const KIND={src:"Source",op:"Step",dec:"Check",ai:"AI",db:"Data",out:"Output",stop:"Stop"};
+const CATS=[["all","All"],["signals","Lead sources"],["agents","Agents"],["ops","Sales ops"],["earlier","Earlier work"]];
+const STATUS={live:"Live",build:"In build",spec:"Designed"};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cap=t=>t?`<div class="vcap">${esc(t)}</div>`:"";
+
+function node(n){return `<div class="nd k-${n.k}">${n.e?`<span class="edge">${esc(n.e)}</span>`:""}<span class="kt">${KIND[n.k]}</span><span class="nt">${esc(n.t)}</span>${n.s?`<span class="ns">${esc(n.s)}</span>`:""}</div>${n.x?`<span class="exit">${esc(n.x)}</span>`:""}`}
+const V={
+ flow:v=>`<div class="fc">${v.rows.map((r,i)=>(i?`<div class="conn" aria-hidden="true"></div>`:"")+(Array.isArray(r)
+   ?`<div class="row fork${i===v.rows.length-1?" end":""}" style="--n:${r.length}">${r.map(n=>`<div class="br">${node(n)}</div>`).join("")}</div>`
+   :`<div class="row single">${node(r)}</div>`)).join("")}</div>`,
+ term:v=>`<div class="term"><div class="tbar"><i></i><i></i><i></i></div>
+   <div class="tl"><span class="pr">$</span> ${esc(v.cmd)}</div>
+   <div class="tl dim">${esc(v.note)}</div>
+   <div class="rec"><div class="rh">${esc(v.rec.lead)}</div>
+   ${v.rec.fields.map(([k,val])=>`<div class="rf"><span>${esc(k)}</span><b>${esc(val)}</b></div>`).join("")}
+   <div class="rb">→ ${esc(v.rec.bucket)}</div></div>
+   <div class="bk">${v.buckets.map(([c,h,s])=>`<div class="b b-${c}"><b>${esc(h)}</b><span>${esc(s)}</span></div>`).join("")}</div></div>`,
+ phases:v=>`<div class="ph">${v.groups.map(g=>`<div class="pg pg-${g.s}"><div class="pgh">${esc(g.h)}</div><div class="pgi">${g.items.map(x=>`<span>${esc(x)}</span>`).join("")}</div></div>`).join(`<div class="parr" aria-hidden="true">→</div>`)}</div>
+   <div class="loop"><span class="la" aria-hidden="true">↺</span>${esc(v.loop)}</div>`,
+ funnel:v=>`<div class="fun">${v.steps.map((s,i)=>`<div class="fb" style="--w:${100-i*17}%"><span>${esc(s)}</span></div>`).join("")}<div class="fend">→ ${esc(v.end)}</div></div>`,
+ ladder:v=>`<ol class="lad">${v.gates.map((g,i)=>`<li class="${g.fin?"fin":""}"><span class="ln">${i+1}</span><div class="lb"><b>${esc(g.t)}</b><span>${esc(g.x)}</span></div><span class="cost" title="relative cost">${g.c===0?"free":"$".repeat(g.c)}</span></li>`).join("")}</ol>`,
+ table:v=>`<div class="tw"><table class="tb"><thead><tr>${v.cols.map((c,i)=>`<th>${esc(c)}${i?'<i>agent fills</i>':''}</th>`).join("")}</tr></thead><tbody>${v.rows.map((r,ri)=>`<tr>${r.map((c,i)=>`<td class="${i===r.length-1?(c==="qualified"?"ok":"no"):""}">${i===0?`<span class="ag">agent ${ri+1}</span>`:""}${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`,
+ timeline:v=>`<div class="tline"><div class="axis">${[-45,-40,-35,-30,-25,-20,-15,-10,-5,0].map(m=>`<span class="tk${m===-30?" hit":""}${m===0?" call":""}"><i></i><em>${m===0?"call":m===-30?"brief":m}</em></span>`).join("")}</div>
+   <div class="tcap">cron checks every 5 min · brief posts at T−30</div></div>
+   <div class="slack"><div class="sh"><b>${esc(v.brief.ch)}</b><span>${esc(v.brief.title)}</span></div>${v.brief.lines.map(([k,s])=>`<div class="sl"><b>${esc(k)}</b><span>${esc(s)}</span></div>`).join("")}</div>`,
+ transform:v=>`<div class="tf"><div class="doc"><div class="dh">Call summary</div>${[90,70,85,v.keep[0],60,95,v.keep[1],75,55,v.keep[2],80].map(x=>typeof x==="number"?`<i style="width:${x}%"></i>`:`<mark>${esc(x)}</mark>`).join("")}</div>
+   <div class="tfa" aria-hidden="true">→</div>
+   <div class="doc mail"><div class="dh">Follow-up email</div><i style="width:55%"></i>${v.keep.map(x=>`<mark>${esc(x)}</mark>`).join("")}<span class="cta1">1 CTA</span></div></div>`,
+ chips:v=>`<ol class="flow">${v.items.map(s=>`<li><span>${esc(s)}</span></li>`).join("")}</ol>`
+};
+function card(p,i){const v=p.viz;return `<article class="card" data-cat="${p.cat}">
+  <div class="meta"><span class="label">${String(i+1).padStart(2,"0")} · ${esc(p.org)}</span><span class="status ${p.status}">${STATUS[p.status]}</span></div>
+  <h3${p.mono?' class="mono-t"':""}>${esc(p.title)}</h3><p>${esc(p.blurb)}</p>
+  ${v.type==="chips"?"":`<div class="viz">${cap(v.cap)}${V[v.type](v)}</div>`}
+  ${v.type==="chips"?V.chips(v):""}
+  <ul class="pts">${p.points.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+  <div class="impact"><b>Business impact</b><span>${esc(p.impact)}</span></div>
+  <div class="tools">${p.tools.map(t=>`<span>${esc(t)}</span>`).join("")}</div></article>`}
+const grid=document.getElementById("grid"), filters=document.getElementById("filters");
+grid.innerHTML=PROJECTS.map(card).join("");
+filters.innerHTML=CATS.map(([k,v],i)=>`<button class="chip" type="button" id="f-${k}" data-k="${k}" aria-pressed="${i===0}">${v}</button>`).join("");
+filters.addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;
+  filters.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c===b));
+  const k=b.dataset.k;grid.querySelectorAll(".card").forEach(c=>{c.hidden=!(k==="all"||c.dataset.cat===k)});});
+const steps=[...document.querySelectorAll(".funnel .step")];let si=0;steps[0].classList.add("on");
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){setInterval(()=>{steps[si].classList.remove("on");si=(si+1)%steps.length;steps[si].classList.add("on")},1100)}
+document.getElementById("copy").addEventListener("click",async e=>{const btn=e.currentTarget,t=document.getElementById("email").textContent;
+  try{await navigator.clipboard.writeText(t);btn.textContent="Copied"}catch(_){const r=document.createRange();r.selectNodeContents(document.getElementById("email"));const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="Selected, press Ctrl+C"}
+  setTimeout(()=>btn.textContent="Copy email",2000)});
+</script>
+
+</body>
+</html>
